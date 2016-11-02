@@ -32,7 +32,6 @@ describe('LRUCache', function() {
       expect(cache.keys()).toEqual(['Tomato', 'Apple']);
     });
 
-
     it('deletes an item and continues with normal operation', function() {
       var cache = new LRUCache(3);
       cache.set('Apple', 1);
