@@ -21,27 +21,6 @@ describe('LRUCache', function() {
 
   var LRUCache = require('../../../dist/commonjs/LRUCache.js');
 
-  describe('set', function() {
-    it('removes the oldest element if no space available', function() {
-      var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      cache.get('Apple');
-      cache.set('Plum', 4);
-      expect(cache.size()).toBe(3);
-    });
-
-    it('returns the removed node if no space available', function() {
-      var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      var removedNode = cache.set('Plum', 4);
-      expect(removedNode.key).toBe('Apple');
-    });
-  });
-
   describe('delete', function() {
     it('deletes an item and continues with normal operation', function() {
       var cache = new LRUCache(3);
@@ -57,4 +36,37 @@ describe('LRUCache', function() {
       expect(cache.size()).toBe(3);
     });
   });
+
+  describe('keys', function() {
+    it('lists all keys of the cache starting with the latest item in the cache', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      expect(cache.keys()).toEqual(['Tomato', 'Orange', 'Apple']);
+    });
+  });
+
+  describe('set', function() {
+    it('removes the oldest element if no space available', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      cache.get('Apple');
+      cache.set('Plum', 4);
+      expect(cache.size()).toBe(3);
+      expect(cache.keys()).toEqual(['Plum', 'Apple', 'Tomato']);
+    });
+
+    it('returns the removed node if no space available', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      var removedNode = cache.set('Plum', 4);
+      expect(removedNode.key).toBe('Apple');
+    });
+  });
+
 });

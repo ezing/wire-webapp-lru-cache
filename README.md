@@ -13,10 +13,3 @@ For licensing information, see the attached LICENSE file and the list of third-p
 ```bash
 npm install wire-webapp-lru-cache
 ```
-
-### Usage
-
-```bash
-npm start
-npm test
-```

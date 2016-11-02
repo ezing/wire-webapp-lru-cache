@@ -86,6 +86,18 @@ class LRUCache {
     return Object.keys(this.map).length;
   }
 
+  public keys(): Array<number|string> {
+    let keys: Array<number|string> = [];
+    let entry: Node = this.head;
+
+    while (entry) {
+      keys.push(entry.key);
+      entry = entry.next;
+    }
+
+    return keys;
+  }
+
   public toString(): string {
     let string: string = '(newest) ';
     let entry: Node = this.head;
