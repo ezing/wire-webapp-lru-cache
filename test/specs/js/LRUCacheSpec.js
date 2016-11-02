@@ -17,18 +17,34 @@
  *
  */
 
-describe('LRUCache', function () {
+describe('LRUCache', function() {
 
   var LRUCache = require('../../../dist/commonjs/LRUCache.js');
 
-  describe('set', function () {
-    it('removes the oldest element if no space available', function () {
+  describe('set', function() {
+    it('removes the oldest element if no space available', function() {
       var cache = new LRUCache(3);
       cache.set('Apple', 1);
       cache.set('Orange', 2);
       cache.set('Tomato', 3);
       cache.get('Apple');
       cache.set('Plum', 4);
+      expect(cache.size()).toBe(3);
+    });
+  });
+
+  describe('delete', function() {
+    it('deletes an item and continues with normal operation', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      var success = cache.delete('Apple');
+      expect(success).toBe(true);
+      expect(cache.size()).toBe(2);
+      cache.set('Plum', 4);
+      expect(cache.size()).toBe(3);
+      cache.set('Banana', 5);
       expect(cache.size()).toBe(3);
     });
   });

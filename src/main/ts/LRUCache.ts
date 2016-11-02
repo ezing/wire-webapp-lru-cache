@@ -20,7 +20,7 @@ class Node {
   public previous: Node;
   public next: Node;
 
-  constructor(public key: number, public value: any) {
+  constructor(public key: number|string, public value: any) {
   }
 }
 
@@ -33,7 +33,7 @@ class LRUCache {
     this.map = {};
   }
 
-  public set(key: number, value: any) {
+  public set(key: number|string, value: any) {
     if (this.map[key]) {
       let old: Node = this.map[key];
       old.value = value;
@@ -53,12 +53,24 @@ class LRUCache {
     }
   }
 
-  public get(key: number): any {
+  public get(key: number|string): any {
     if (this.map[key]) {
       let node: Node = this.map[key];
       this.remove(node);
       this.setHead(node);
       return node.value;
+    }
+  }
+
+  public delete(key: number|string): boolean {
+    var node: Node = this.map[key];
+
+    if (node) {
+      this.remove(node);
+      delete this.map[node.key];
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -82,7 +94,6 @@ class LRUCache {
   }
 
   private remove(node: Node) {
-
     if (node.previous) {
       node.previous.next = node.next;
     } else {
