@@ -34,28 +34,28 @@ class LRUCache {
   }
 
   public set(key: number|string, value: any) {
-    if (this.map[key]) {
-      let old: Node = this.map[key];
+    let old: Node = (<any> this.map)[key];
+    if (old) {
       old.value = value;
       this.remove(old);
       this.setHead(old);
     } else {
       let created: Node = new Node(key, value);
       if (Object.keys(this.map).length >= this.capacity) {
-        delete this.map[this.end.key];
+        delete (<any> this.map)[this.end.key];
         this.remove(this.end);
         this.setHead(created);
       } else {
         this.setHead(created);
       }
 
-      this.map[key] = created;
+      (<any> this.map)[key] = created;
     }
   }
 
   public get(key: number|string): any {
-    if (this.map[key]) {
-      let node: Node = this.map[key];
+    let node: Node = (<any> this.map)[key];
+    if (node) {
       this.remove(node);
       this.setHead(node);
       return node.value;
@@ -63,11 +63,11 @@ class LRUCache {
   }
 
   public delete(key: number|string): boolean {
-    var node: Node = this.map[key];
+    let node: Node = (<any> this.map)[key];
 
     if (node) {
       this.remove(node);
-      delete this.map[node.key];
+      delete (<any> this.map)[node.key];
       return true;
     } else {
       return false;
