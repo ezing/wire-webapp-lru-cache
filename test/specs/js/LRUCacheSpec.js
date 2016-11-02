@@ -31,6 +31,15 @@ describe('LRUCache', function() {
       cache.set('Plum', 4);
       expect(cache.size()).toBe(3);
     });
+
+    it('returns the removed node if no space available', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      var removedNode = cache.set('Plum', 4);
+      expect(removedNode.key).toBe('Apple');
+    });
   });
 
   describe('delete', function() {

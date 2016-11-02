@@ -19,8 +19,12 @@
 class Node {
   public previous: Node;
   public next: Node;
+  public key: number|string;
+  public value: any;
 
-  constructor(public key: number|string, public value: any) {
+  constructor(key: number|string, value: any) {
+    this.key = key;
+    this.value = value;
   }
 }
 
@@ -33,23 +37,27 @@ class LRUCache {
     this.map = {};
   }
 
-  public set(key: number|string, value: any) {
+  public set(key: number|string, value: any): any {
     let old: Node = (<any> this.map)[key];
+    let removedNode: Node;
+
     if (old) {
       old.value = value;
-      this.remove(old);
+      removedNode = this.remove(old);
       this.setHead(old);
     } else {
       let created: Node = new Node(key, value);
+
       if (Object.keys(this.map).length >= this.capacity) {
         delete (<any> this.map)[this.end.key];
-        this.remove(this.end);
+        removedNode = this.remove(this.end);
         this.setHead(created);
       } else {
         this.setHead(created);
       }
 
       (<any> this.map)[key] = created;
+      return removedNode;
     }
   }
 
@@ -93,7 +101,7 @@ class LRUCache {
     return `${string} (oldest)`;
   }
 
-  private remove(node: Node) {
+  private remove(node: Node): Node {
     if (node.previous) {
       node.previous.next = node.next;
     } else {
@@ -105,6 +113,8 @@ class LRUCache {
     } else {
       this.end = node.previous;
     }
+
+    return node;
   }
 
   private setHead(node: Node) {
