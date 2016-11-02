@@ -22,6 +22,17 @@ describe('LRUCache', function() {
   var LRUCache = require('../../../dist/commonjs/LRUCache.js');
 
   describe('delete', function() {
+    it('keeps the list order intact when deleting', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      cache.delete('Orange');
+      expect(cache.size()).toBe(2);
+      expect(cache.keys()).toEqual(['Tomato', 'Apple']);
+    });
+
+
     it('deletes an item and continues with normal operation', function() {
       var cache = new LRUCache(3);
       cache.set('Apple', 1);
