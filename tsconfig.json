@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "outDir": "dist/commonjs",
+    "removeComments": true,
+    "rootDir": "src/main/ts",
+    "sourceMap": false,
+    "target": "es5"
+  },
+  "exclude": [
+    "bower_components",
+    "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts"
+  ]
+}
