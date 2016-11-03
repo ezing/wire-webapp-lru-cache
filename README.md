@@ -20,6 +20,18 @@ npm install wire-webapp-lru-cache
 
 ### Usage
 
+**TypeScript**
+
+```typescript
+import LRUCache from "wire-webapp-lru-cache";
+
+...
+
+let cache: LRUCache = new LRUCache(3);
+```
+
+**JavaScript**
+
 ```javascript
 var LRUCache = require('wire-webapp-lru-cache');
 

@@ -13,4 +13,4 @@ declare class LRUCache {
     private remove(node);
     private setHead(node);
 }
-export = LRUCache;
+export default LRUCache;
