@@ -11,10 +11,10 @@
     "tests"
   ],
   "keywords": [
-    "wire",
-    "lru",
     "cache",
-    "performance"
+    "lru",
+    "performance",
+    "wire"
   ],
   "license": "GPL-3.0",
   "main": "dist/commonjs/LRUCache.js",
