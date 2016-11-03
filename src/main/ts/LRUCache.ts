@@ -45,6 +45,7 @@ class LRUCache {
       old.value = value;
       removedNode = this.remove(old);
       this.setHead(old);
+      return removedNode;
     } else {
       let created: Node = new Node(key, value);
 
