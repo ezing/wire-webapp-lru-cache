@@ -19,7 +19,7 @@
 
 describe('LRUCache', function() {
 
-  var LRUCache = require('../../../dist/commonjs/LRUCache.js');
+  var LRUCache = require('../../../dist/commonjs/LRUCache.js').LRUCache;
 
   describe('delete', function() {
     it('keeps the list order intact when deleting', function() {
@@ -47,6 +47,16 @@ describe('LRUCache', function() {
     });
   });
 
+  describe('oldest', function() {
+    it('returns the item which was added first', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      expect(cache.oldest().key).toBe('Apple');
+    });
+  });
+
   describe('keys', function() {
     it('lists all keys of the cache starting with the latest item in the cache', function() {
       var cache = new LRUCache(3);
@@ -54,6 +64,16 @@ describe('LRUCache', function() {
       cache.set('Orange', 2);
       cache.set('Tomato', 3);
       expect(cache.keys()).toEqual(['Tomato', 'Orange', 'Apple']);
+    });
+  });
+
+  describe('latest', function() {
+    it('returns the item which was added last', function() {
+      var cache = new LRUCache(3);
+      cache.set('Apple', 1);
+      cache.set('Orange', 2);
+      cache.set('Tomato', 3);
+      expect(cache.latest().key).toBe('Tomato');
     });
   });
 

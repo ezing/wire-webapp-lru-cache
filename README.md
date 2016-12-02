@@ -33,7 +33,8 @@ let cache: LRUCache = new LRUCache(3);
 **JavaScript**
 
 ```javascript
-var LRUCache = require('wire-webapp-lru-cache');
+var cache = require('wire-webapp-lru-cache');
+var LRUCache = cache.LRUCache;
 
 // "set"
 var cache = new LRUCache(2);

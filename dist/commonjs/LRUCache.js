@@ -6,6 +6,7 @@ var Node = (function () {
     }
     return Node;
 }());
+exports.Node = Node;
 var LRUCache = (function () {
     function LRUCache(capacity) {
         this.capacity = capacity;
@@ -13,7 +14,7 @@ var LRUCache = (function () {
     }
     LRUCache.prototype.set = function (key, value) {
         var old = this.map[key];
-        var removedNode;
+        var removedNode = undefined;
         if (old) {
             old.value = value;
             removedNode = this.remove(old);
@@ -52,6 +53,12 @@ var LRUCache = (function () {
         else {
             return false;
         }
+    };
+    LRUCache.prototype.latest = function () {
+        return this.head;
+    };
+    LRUCache.prototype.oldest = function () {
+        return this.end;
     };
     LRUCache.prototype.size = function () {
         return Object.keys(this.map).length;
@@ -105,4 +112,4 @@ var LRUCache = (function () {
     };
     return LRUCache;
 }());
-module.exports = LRUCache;
+exports.LRUCache = LRUCache;

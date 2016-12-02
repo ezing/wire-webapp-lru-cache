@@ -16,7 +16,7 @@
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
 
-class Node {
+export class Node {
   public previous: Node;
   public next: Node;
   public key: number|string;
@@ -28,7 +28,7 @@ class Node {
   }
 }
 
-class LRUCache {
+export class LRUCache {
   private map: Object;
   private head: Node;
   private end: Node;
@@ -37,9 +37,9 @@ class LRUCache {
     this.map = {};
   }
 
-  public set(key: number|string, value: any): any {
+  public set(key: number|string, value: any): Node|undefined {
     let old: Node = (<any> this.map)[key];
-    let removedNode: Node;
+    let removedNode: Node = undefined;
 
     if (old) {
       old.value = value;
@@ -81,6 +81,14 @@ class LRUCache {
     } else {
       return false;
     }
+  }
+
+  public latest(): Node {
+    return this.head;
+  }
+
+  public oldest(): Node {
+    return this.end;
   }
 
   public size(): number {
@@ -145,5 +153,3 @@ class LRUCache {
     }
   }
 }
-
-export = LRUCache;
