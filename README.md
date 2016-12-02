@@ -15,7 +15,7 @@ For licensing information, see the attached LICENSE file and the list of third-p
 ### Installation
 
 ```bash
-npm install wire-webapp-lru-cache
+npm install --save wire-webapp-lru-cache
 ```
 
 ### Usage
@@ -24,9 +24,6 @@ npm install wire-webapp-lru-cache
 
 ```typescript
 import LRUCache from "wire-webapp-lru-cache";
-
-...
-
 let cache: LRUCache = new LRUCache(3);
 ```
 
@@ -68,4 +65,10 @@ var value = cache.get('Fourth');
 console.log(value); // 4
 cache.set('Sixth', 6);
 console.log(cache.keys()); // ['Sixth', 'Fourth']
+
+// "latest" (get Node which was added last)
+console.log(cache.latest().key); // 'Sixth'
+
+// "oldest" (get Node which was added first)
+console.log(cache.oldest().key); // 'Fourth'
 ```
