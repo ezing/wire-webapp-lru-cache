@@ -17,6 +17,6 @@
     "wire"
   ],
   "license": "GPL-3.0",
-  "main": "dist/commonjs/LRUCache.js",
+  "main": "dist/window/LRUCache.js",
   "name": "wire-webapp-lru-cache"
 }

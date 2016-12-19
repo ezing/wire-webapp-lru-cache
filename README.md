@@ -33,3 +33,13 @@ let cache = new LRUCache();
 const LRUCache = require('wire-webapp-lru-cache');
 let cache = new LRUCache();
 ```
+
+### Usage
+
+**Browser**
+
+- [index.html](./dist/index.html)
+
+**Node.js**
+
+- [index.js](./dist/index.js) 

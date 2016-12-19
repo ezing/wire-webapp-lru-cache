@@ -1,6 +1,9 @@
 {
   "author": "Wire",
   "description": "Least Recently Used (LRU) Cache for JavaScript and TypeScript.",
+  "dependencies": {
+    "webpack": "^2.2.0-rc.0"
+  },
   "devDependencies": {
     "jasmine": "^2.5.2",
     "typescript": "^2.1.4"
@@ -13,7 +16,7 @@
     "url": "git+https://github.com/wireapp/wire-webapp-lru-cache.git"
   },
   "scripts": {
-    "prepublish": "tsc",
+    "prepublish": "tsc && webpack --progress",
     "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
   },
   "typings": "dist/commonjs/LRUCache.d.ts",
