@@ -3,7 +3,7 @@
   "description": "Least Recently Used (LRU) Cache for JavaScript and TypeScript.",
   "devDependencies": {
     "jasmine": "^2.5.2",
-    "typescript": "^2.0.6"
+    "typescript": "^2.1.4"
   },
   "license": "GPL-3.0",
   "main": "dist/commonjs/LRUCache.js",

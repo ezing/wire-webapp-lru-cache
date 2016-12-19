@@ -16,38 +16,32 @@
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
 
-export class Node {
-  public previous: Node;
-  public next: Node;
-  public key: number|string;
-  public value: any;
-
-  constructor(key: number|string, value: any) {
-    this.key = key;
-    this.value = value;
-  }
-}
-
-export class LRUCache {
+class LRUCache {
   private map: Object;
-  private head: Node;
-  private end: Node;
+  private head: any;
+  private end: any;
 
-  constructor(private capacity: number) {
+  constructor(private capacity: number = 100) {
     this.map = {};
   }
 
-  public set(key: number|string, value: any): Node|undefined {
-    let old: Node = (<any> this.map)[key];
-    let removedNode: Node = undefined;
+  public set(key: string, value: any): Object {
+    let old: any = (<any> this.map)[key];
+    let removedNode: any = {
+      key: undefined,
+      value: undefined
+    };
 
     if (old) {
       old.value = value;
       removedNode = this.remove(old);
       this.setHead(old);
-      return removedNode;
+      return removedNode.value;
     } else {
-      let created: Node = new Node(key, value);
+      let created: any = {
+        key: key,
+        value: value
+      };
 
       if (Object.keys(this.map).length >= this.capacity) {
         delete (<any> this.map)[this.end.key];
@@ -58,12 +52,12 @@ export class LRUCache {
       }
 
       (<any> this.map)[key] = created;
-      return removedNode;
+      return removedNode.value;
     }
   }
 
-  public get(key: number|string): any {
-    let node: Node = (<any> this.map)[key];
+  public get(key: string): any {
+    let node: any = (<any> this.map)[key];
     if (node) {
       this.remove(node);
       this.setHead(node);
@@ -71,8 +65,8 @@ export class LRUCache {
     }
   }
 
-  public delete(key: number|string): boolean {
-    let node: Node = (<any> this.map)[key];
+  public delete(key: string): boolean {
+    let node: any = (<any> this.map)[key];
 
     if (node) {
       this.remove(node);
@@ -83,21 +77,21 @@ export class LRUCache {
     }
   }
 
-  public latest(): Node {
-    return this.head;
+  public latest(): any {
+    return this.head.value;
   }
 
-  public oldest(): Node {
-    return this.end;
+  public oldest(): any {
+    return this.end.value;
   }
 
   public size(): number {
     return Object.keys(this.map).length;
   }
 
-  public keys(): Array<number|string> {
-    let keys: Array<number|string> = [];
-    let entry: Node = this.head;
+  public keys(): Array<string> {
+    let keys: Array<string> = [];
+    let entry: any = this.head;
 
     while (entry) {
       keys.push(entry.key);
@@ -109,7 +103,7 @@ export class LRUCache {
 
   public toString(): string {
     let string: string = '(newest) ';
-    let entry: Node = this.head;
+    let entry: any = this.head;
 
     while (entry) {
       string += `${String(entry.key)}:${entry.value}`;
@@ -122,7 +116,7 @@ export class LRUCache {
     return `${string} (oldest)`;
   }
 
-  private remove(node: Node): Node {
+  private remove(node: any): any {
     if (node.previous) {
       node.previous.next = node.next;
     } else {
@@ -138,7 +132,7 @@ export class LRUCache {
     return node;
   }
 
-  private setHead(node: Node) {
+  private setHead(node: any) {
     node.next = this.head;
     node.previous = null;
 
@@ -153,3 +147,5 @@ export class LRUCache {
     }
   }
 }
+
+export = LRUCache;

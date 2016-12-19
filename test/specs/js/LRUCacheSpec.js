@@ -19,83 +19,83 @@
 
 describe('LRUCache', function() {
 
-  var LRUCache = require('../../../dist/commonjs/LRUCache.js').LRUCache;
+  var LRUCache = require('../../../dist/commonjs/LRUCache.js');
 
   describe('delete', function() {
     it('keeps the list order intact when deleting', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      cache.delete('Orange');
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      cache.delete('2');
       expect(cache.size()).toBe(2);
-      expect(cache.keys()).toEqual(['Tomato', 'Apple']);
+      expect(cache.keys()).toEqual(['3', '1']);
     });
 
-    it('deletes an item and continues with normal operation', function() {
+    it('deletes a Node and continues with normal operation', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      var success = cache.delete('Apple');
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      var success = cache.delete('1');
       expect(success).toBe(true);
       expect(cache.size()).toBe(2);
-      cache.set('Plum', 4);
+      cache.set('4', 'Plum');
       expect(cache.size()).toBe(3);
-      cache.set('Banana', 5);
+      cache.set('5', 'Banana');
       expect(cache.size()).toBe(3);
     });
   });
 
   describe('oldest', function() {
-    it('returns the item which was added first', function() {
+    it('returns the Node\'s value which was added first', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      expect(cache.oldest().key).toBe('Apple');
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      expect(cache.oldest()).toBe('Apple');
     });
   });
 
   describe('keys', function() {
     it('lists all keys of the cache starting with the latest item in the cache', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      expect(cache.keys()).toEqual(['Tomato', 'Orange', 'Apple']);
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      expect(cache.keys()).toEqual(['3', '2', '1']);
     });
   });
 
   describe('latest', function() {
-    it('returns the item which was added last', function() {
+    it('returns the Node\'s value which was added last', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      expect(cache.latest().key).toBe('Tomato');
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      expect(cache.latest()).toBe('Tomato');
     });
   });
 
   describe('set', function() {
-    it('removes the oldest element if no space available', function() {
+    it('removes the oldest Node if no space available', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      cache.get('Apple');
-      cache.set('Plum', 4);
+      cache.set('1', 'Apple');
+      cache.set('2', 'Orange');
+      cache.set('3', 'Tomato');
+      cache.get('1');
+      cache.set('4', 'Plum');
       expect(cache.size()).toBe(3);
-      expect(cache.keys()).toEqual(['Plum', 'Apple', 'Tomato']);
+      expect(cache.keys()).toEqual(['4', '1', '3']);
     });
 
-    it('returns the removed node if no space available', function() {
+    it('returns the removed Node\'s value if no space available in the cache', function() {
       var cache = new LRUCache(3);
-      cache.set('Apple', 1);
-      cache.set('Orange', 2);
-      cache.set('Tomato', 3);
-      var removedNode = cache.set('Plum', 4);
-      expect(removedNode.key).toBe('Apple');
+      cache.set('1', 'Apple');
+      cache.set('2', 'Tomato');
+      cache.set('3', 'Orange');
+      var removedNode = cache.set('4', 'Plum');
+      expect(removedNode).toBe('Apple');
     });
   });
 
