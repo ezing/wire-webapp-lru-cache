@@ -25,6 +25,63 @@ class LRUCache {
     this.map = {};
   }
 
+  public delete(key: string): boolean {
+    let node: any = (<any> this.map)[key];
+
+    if (node) {
+      this.remove(node);
+      delete (<any> this.map)[node.key];
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public get(key: string): any {
+    let node: any = (<any> this.map)[key];
+    if (node) {
+      this.remove(node);
+      this.setHead(node);
+      return node.value;
+    }
+  }
+
+  public keys(): Array<string> {
+    let keys: Array<string> = [];
+    let entry: any = this.head;
+
+    while (entry) {
+      keys.push(entry.key);
+      entry = entry.next;
+    }
+
+    return keys;
+  }
+
+  public latest(): any {
+    return this.head.value;
+  }
+
+  public oldest(): any {
+    return this.end.value;
+  }
+
+  private remove(node: any): any {
+    if (node.previous) {
+      node.previous.next = node.next;
+    } else {
+      this.head = node.next;
+    }
+
+    if (node.next != null) {
+      node.next.previous = node.previous;
+    } else {
+      this.end = node.previous;
+    }
+
+    return node;
+  }
+
   public set(key: string, value: any): Object {
     let old: any = (<any> this.map)[key];
     let removedNode: any = {
@@ -56,49 +113,23 @@ class LRUCache {
     }
   }
 
-  public get(key: string): any {
-    let node: any = (<any> this.map)[key];
-    if (node) {
-      this.remove(node);
-      this.setHead(node);
-      return node.value;
+  private setHead(node: any) {
+    node.next = this.head;
+    node.previous = null;
+
+    if (this.head) {
+      this.head.previous = node;
     }
-  }
 
-  public delete(key: string): boolean {
-    let node: any = (<any> this.map)[key];
+    this.head = node;
 
-    if (node) {
-      this.remove(node);
-      delete (<any> this.map)[node.key];
-      return true;
-    } else {
-      return false;
+    if (!this.end) {
+      this.end = this.head;
     }
-  }
-
-  public latest(): any {
-    return this.head.value;
-  }
-
-  public oldest(): any {
-    return this.end.value;
   }
 
   public size(): number {
     return Object.keys(this.map).length;
-  }
-
-  public keys(): Array<string> {
-    let keys: Array<string> = [];
-    let entry: any = this.head;
-
-    while (entry) {
-      keys.push(entry.key);
-      entry = entry.next;
-    }
-
-    return keys;
   }
 
   public toString(): string {
@@ -114,37 +145,6 @@ class LRUCache {
     }
 
     return `${string} (oldest)`;
-  }
-
-  private remove(node: any): any {
-    if (node.previous) {
-      node.previous.next = node.next;
-    } else {
-      this.head = node.next;
-    }
-
-    if (node.next != null) {
-      node.next.previous = node.previous;
-    } else {
-      this.end = node.previous;
-    }
-
-    return node;
-  }
-
-  private setHead(node: any) {
-    node.next = this.head;
-    node.previous = null;
-
-    if (this.head) {
-      this.head.previous = node;
-    }
-
-    this.head = node;
-
-    if (!this.end) {
-      this.end = this.head;
-    }
   }
 }
 

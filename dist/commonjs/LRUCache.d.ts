@@ -4,15 +4,15 @@ declare class LRUCache {
     private head;
     private end;
     constructor(capacity?: number);
-    set(key: string, value: any): Object;
-    get(key: string): any;
     delete(key: string): boolean;
+    get(key: string): any;
+    keys(): Array<string>;
     latest(): any;
     oldest(): any;
-    size(): number;
-    keys(): Array<string>;
-    toString(): string;
     private remove(node);
+    set(key: string, value: any): Object;
     private setHead(node);
+    size(): number;
+    toString(): string;
 }
 export = LRUCache;

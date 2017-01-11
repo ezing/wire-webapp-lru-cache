@@ -42,4 +42,8 @@ let cache = new LRUCache();
 
 **Node.js**
 
-- [index.js](./dist/index.js) 
+- [index.js](./dist/index.js)
+
+**Functions**
+
+- [TypeScript Declaration File](./dist/commonjs/LRUCache.d.ts)
